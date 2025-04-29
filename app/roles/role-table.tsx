@@ -42,7 +42,7 @@ export function RoleTable({ roles }: RoleTableProps) {
 
   const columns: ColumnDef<Role>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "nom",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -83,7 +83,7 @@ export function RoleTable({ roles }: RoleTableProps) {
 
   return (
     <>
-      <DataTable columns={columns} data={roles} searchKey="name" searchPlaceholder="Search roles..." />
+      <DataTable columns={columns} data={roles} searchKey="nom" searchPlaceholder="Search roles..." />
 
       <ConfirmDialog
         open={!!deleteId}

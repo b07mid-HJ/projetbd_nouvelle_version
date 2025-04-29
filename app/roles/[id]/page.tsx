@@ -28,7 +28,7 @@ export default async function RoleDetailPage({ params }: RoleDetailPageProps) {
               <span className="sr-only">Back</span>
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-tight">{role.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{role.nom}</h1>
         </div>
         <Button asChild>
           <Link href={`/roles/${role.id}/edit`}>
@@ -45,7 +45,7 @@ export default async function RoleDetailPage({ params }: RoleDetailPageProps) {
         <CardContent className="space-y-6">
           <div className="space-y-1">
             <div className="text-sm font-medium text-muted-foreground">Name</div>
-            <div>{role.name}</div>
+            <div>{role.nom}</div>
           </div>
         </CardContent>
       </Card>

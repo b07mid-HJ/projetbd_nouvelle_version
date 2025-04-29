@@ -19,7 +19,7 @@ export default async function ParticipantDetailPage({ params }: ParticipantDetai
     notFound()
   }
 
-  return (
+    return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export default async function ParticipantDetailPage({ params }: ParticipantDetai
               <span className="sr-only">Back</span>
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-tight">{participant.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{participant.nom+" "+participant.prenom}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
@@ -47,7 +47,6 @@ export default async function ParticipantDetailPage({ params }: ParticipantDetai
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Participant Details</CardTitle>
@@ -56,7 +55,7 @@ export default async function ParticipantDetailPage({ params }: ParticipantDetai
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-1">
                 <div className="text-sm font-medium text-muted-foreground">Name</div>
-                <div>{participant.name}</div>
+                <div>{participant.nom +" "+ participant.prenom}</div>
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-muted-foreground">Email</div>
@@ -64,68 +63,21 @@ export default async function ParticipantDetailPage({ params }: ParticipantDetai
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-medium text-muted-foreground">Phone</div>
-                <div>{participant.phone}</div>
+                <div>{participant.tel}</div>
+              </div>
+              {/* add strucuture and profil  */}
+              <div className="space-y-1">
+                <div className="text-sm font-medium text-muted-foreground">Structure</div>
+                <div>{participant.structure.libelle}</div>
               </div>
               <div className="space-y-1">
-                <div className="text-sm font-medium text-muted-foreground">Status</div>
-                <div>
-                  <Badge
-                    variant={
-                      participant.status === "active"
-                        ? "default"
-                        : participant.status === "completed"
-                          ? "success"
-                          : "secondary"
-                    }
-                  >
-                    {participant.status.charAt(0).toUpperCase() + participant.status.slice(1)}
-                  </Badge>
-                </div>
+                <div className="text-sm font-medium text-muted-foreground">Profil</div>
+                <div>{participant.profil.libelle}</div>
               </div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-sm font-medium text-muted-foreground">Enrollment Date</div>
-              <div>{new Date(participant.enrollmentDate).toLocaleDateString()}</div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Training History</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {participant.trainingHistory.length > 0 ? (
-              <div className="space-y-4">
-                {participant.trainingHistory.map((training, index) => (
-                  <div key={index} className="rounded-lg border p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="font-medium">{training.program}</div>
-                      <Badge
-                        variant={
-                          training.status === "ongoing"
-                            ? "default"
-                            : training.status === "completed"
-                              ? "success"
-                              : "destructive"
-                        }
-                      >
-                        {training.status.charAt(0).toUpperCase() + training.status.slice(1)}
-                      </Badge>
-                    </div>
-                    <div className="mt-2 text-sm text-muted-foreground">
-                      <div>Started: {new Date(training.startDate).toLocaleDateString()}</div>
-                      {training.endDate && <div>Completed: {new Date(training.endDate).toLocaleDateString()}</div>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-6 text-muted-foreground">No training history available.</div>
-            )}
-          </CardContent>
-        </Card>
       </div>
-    </div>
   )
 }

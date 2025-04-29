@@ -8,13 +8,17 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { createParticipant, updateParticipant } from "@/lib/actions"
+import { createParticipant, updateParticipant, getStructures, getProfils } from "@/lib/actions"
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const participantSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+  firstName: z.string().min(2, {
+    message: "First name must be at least 2 characters.",
+  }),
+  lastName: z.string().min(2, {
+    message: "Last name must be at least 2 characters.",
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -22,7 +26,8 @@ const participantSchema = z.object({
   phone: z.string().min(5, {
     message: "Phone number must be at least 5 characters.",
   }),
-  status: z.enum(["active", "inactive", "completed"]),
+  structureId: z.string().optional(),
+  profileId: z.string().optional(),
 })
 
 type ParticipantFormValues = z.infer<typeof participantSchema>
@@ -35,21 +40,41 @@ export function ParticipantForm({ participant }: ParticipantFormProps) {
   const { toast } = useToast()
   const router = useRouter()
   const isEditing = !!participant
+  const [structures, setStructures] = useState<any[]>([])
+  const [profiles, setProfiles] = useState<any[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const structuresData = await getStructures()
+        const profilesData = await getProfils()
+        setStructures(structuresData || [])
+        setProfiles(profilesData || [])
+      } catch (error) {
+        console.error("Error fetching form data:", error)
+      }
+    }
+    fetchData()
+  }, [])
 
   const form = useForm<ParticipantFormValues>({
     resolver: zodResolver(participantSchema),
     defaultValues: participant
       ? {
-          name: participant.name,
-          email: participant.email,
-          phone: participant.phone,
-          status: participant.status,
+          firstName: participant.prenom || participant.firstName || "",
+          lastName: participant.nom || participant.lastName || "",
+          email: participant.email || "",
+          phone: participant.tel || participant.phone || "",
+          structureId: participant.structure?.id || participant.structureId || "",
+          profileId: participant.profil?.id || participant.profileId || "",
         }
       : {
-          name: "",
+          firstName: "",
+          lastName: "",
           email: "",
           phone: "",
-          status: "active",
+          structureId: "",
+          profileId: "",
         },
   })
 
@@ -57,7 +82,7 @@ export function ParticipantForm({ participant }: ParticipantFormProps) {
     try {
       const formData = new FormData()
       Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value)
+        if (value) formData.append(key, value)
       })
 
       const result = isEditing ? await updateParticipant(participant.id, formData) : await createParticipant(formData)
@@ -92,12 +117,25 @@ export function ParticipantForm({ participant }: ParticipantFormProps) {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
-            name="name"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>First Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="John" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Doe" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -129,30 +167,54 @@ export function ParticipantForm({ participant }: ParticipantFormProps) {
               </FormItem>
             )}
           />
-          {isEditing && (
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select status" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="inactive">Inactive</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
+          <FormField
+            control={form.control}
+            name="structureId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Structure</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select structure" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {structures.map((structure) => (
+                      <SelectItem key={structure.id} value={structure.id}>
+                        {structure.libelle}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="profileId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Profile</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select profile" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {profiles.map((profile) => (
+                      <SelectItem key={profile.id} value={profile.id}>
+                        {profile.libelle}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="flex justify-end gap-4">
           <Button

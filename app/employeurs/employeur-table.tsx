@@ -42,7 +42,7 @@ export function EmployeurTable({ employeurs }: EmployeurTableProps) {
 
   const columns: ColumnDef<Employeur>[] = [
     {
-      accessorKey: "nomEmployeur",
+      accessorKey: "nomemployeur", // Using the API field name
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -86,7 +86,7 @@ export function EmployeurTable({ employeurs }: EmployeurTableProps) {
       <DataTable
         columns={columns}
         data={employeurs}
-        searchKey="nomEmployeur"
+        searchKey="nomemployeur" // Using the API field name
         searchPlaceholder="Search employeurs..."
       />
 

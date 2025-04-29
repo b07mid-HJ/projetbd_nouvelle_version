@@ -4,8 +4,10 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import Navbar from "@/components/navbar"
+import Sidebar from "@/components/sidebar"
+import { MainContent } from "@/components/main-content"
 import { QueryProvider } from "@/components/providers/query-provider"
+import { SidebarProvider } from "@/context/sidebar-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,10 +27,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-1 container mx-auto py-6 px-4">{children}</main>
-            </div>
+            <SidebarProvider>
+              <div className="min-h-screen flex flex-col">
+                <Sidebar />
+                <main className="flex-1 py-6 px-4 container mx-auto">
+                  <MainContent>{children}</MainContent>
+                </main>
+              </div>
+            </SidebarProvider>
             <Toaster />
           </ThemeProvider>
         </QueryProvider>

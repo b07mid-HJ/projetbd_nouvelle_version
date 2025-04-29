@@ -1,6 +1,6 @@
 "use client"
 
-import type { Utilisateur } from "@/lib/data"
+import type { Utilisateur, Role } from "@/lib/data"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -44,10 +44,10 @@ export function UtilisateurForm({ utilisateur }: UtilisateurFormProps) {
 
   const form = useForm<UtilisateurFormValues>({
     resolver: zodResolver(utilisateurSchema),
-    defaultValues: utilisateur || {
-      login: "",
-      password: "",
-      roleId: "",
+    defaultValues: {
+      login: utilisateur?.login || "",
+      password: utilisateur?.password || "",
+      roleId: utilisateur?.role?.id || utilisateur?.roleId || "",
     },
   })
 
@@ -127,9 +127,9 @@ export function UtilisateurForm({ utilisateur }: UtilisateurFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {roles.map((role) => (
+                    {roles.map((role: Role) => (
                       <SelectItem key={role.id} value={role.id}>
-                        {role.name}
+                        {role.nom}
                       </SelectItem>
                     ))}
                   </SelectContent>

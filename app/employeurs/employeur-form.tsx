@@ -30,7 +30,10 @@ export function EmployeurForm({ employeur }: EmployeurFormProps) {
 
   const form = useForm<EmployeurFormValues>({
     resolver: zodResolver(employeurSchema),
-    defaultValues: employeur || {
+    defaultValues: employeur ? {
+      // Map API field name to form field name
+      nomEmployeur: employeur.nomemployeur,
+    } : {
       nomEmployeur: "",
     },
   })
@@ -38,9 +41,8 @@ export function EmployeurForm({ employeur }: EmployeurFormProps) {
   async function onSubmit(values: EmployeurFormValues) {
     try {
       const formData = new FormData()
-      Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value)
-      })
+      // Ensure we're using the correct field name for the API
+      formData.append("nomEmployeur", values.nomEmployeur)
 
       const result = isEditing ? await updateEmployeur(employeur.id, formData) : await createEmployeur(formData)
 

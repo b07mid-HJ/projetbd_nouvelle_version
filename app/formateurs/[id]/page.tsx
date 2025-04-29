@@ -18,6 +18,13 @@ export default async function FormateurDetailPage({ params }: FormateurDetailPag
     notFound()
   }
 
+  // Prepare display values with fallbacks for API format
+  const displayName = formateur.name || `${formateur.prenom || ''} ${formateur.nom || ''}`
+  const displayEmail = formateur.email || ''
+  const displayPhone = formateur.phone || formateur.tel || ''
+  const displayType = formateur.type || 'N/A'
+  const displayEmployeur = formateur.employeur?.nomemployeur || 'N/A'
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -28,7 +35,7 @@ export default async function FormateurDetailPage({ params }: FormateurDetailPag
               <span className="sr-only">Back</span>
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-tight">{formateur.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{displayName}</h1>
         </div>
         <Button asChild>
           <Link href={`/formateurs/${formateur.id}/edit`}>
@@ -45,29 +52,29 @@ export default async function FormateurDetailPage({ params }: FormateurDetailPag
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1">
-              <div className="text-sm font-medium text-muted-foreground">Name</div>
-              <div>{formateur.name}</div>
+              <div className="text-sm font-medium text-muted-foreground">First Name</div>
+              <div>{formateur.firstName || formateur.prenom || 'N/A'}</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-sm font-medium text-muted-foreground">Last Name</div>
+              <div>{formateur.lastName || formateur.nom || 'N/A'}</div>
             </div>
             <div className="space-y-1">
               <div className="text-sm font-medium text-muted-foreground">Email</div>
-              <div>{formateur.email}</div>
+              <div>{displayEmail}</div>
             </div>
             <div className="space-y-1">
               <div className="text-sm font-medium text-muted-foreground">Phone</div>
-              <div>{formateur.phone}</div>
+              <div>{displayPhone}</div>
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-medium text-muted-foreground">Specialization</div>
-              <div>{formateur.specialization}</div>
+              <div className="text-sm font-medium text-muted-foreground">Type</div>
+              <div>{displayType}</div>
             </div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Bio</div>
-            <div>{formateur.bio}</div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Joined Date</div>
-            <div>{new Date(formateur.joinedDate).toLocaleDateString()}</div>
+            <div className="space-y-1">
+              <div className="text-sm font-medium text-muted-foreground">Employeur</div>
+              <div>{displayEmployeur}</div>
+            </div>
           </div>
         </CardContent>
       </Card>

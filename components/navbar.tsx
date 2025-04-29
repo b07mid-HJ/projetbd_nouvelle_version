@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import {
   Home,
@@ -13,12 +13,27 @@ import {
   UserCircle,
   ShieldCheck,
   Layers,
+  LogOut,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useEffect, useState } from "react"
+import { getUserName, logout } from "@/lib/auth"
 
 export default function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
+  const [username, setUsername] = useState<string | undefined>()
+  
+  useEffect(() => {
+    // Get username from cookie on client side
+    setUsername(getUserName())
+  }, [])
+  
+  // Don't render navbar on login page
+  if (pathname === '/login') {
+    return null
+  }
 
   const navItems = [
     {
@@ -87,7 +102,24 @@ export default function Navbar() {
             </Button>
           ))}
         </nav>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
+          {username && (
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium hidden md:inline-block">Welcome, {username}</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => {
+                  logout()
+                  router.push('/login')
+                  router.refresh()
+                }}
+                title="Logout"
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
           <ModeToggle />
         </div>
       </div>

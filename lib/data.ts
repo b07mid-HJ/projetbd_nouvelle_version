@@ -1,37 +1,47 @@
 // Types for our data models
 export type Formateur = {
   id: string
-  name: string
+  nom: string
+  prenom: string
   email: string
-  phone: string
-  specialization: string
-  bio: string
-  joinedDate: string
-  // New fields based on the schema
-  firstName: string
-  lastName: string
+  tel: string
   type: "interne" | "externe"
-  employerId: string
+  employeur?: {
+    id: string
+    nomemployeur?: string
+  }
+  // Fields for frontend compatibility
+  name?: string
+  firstName?: string
+  lastName?: string
+  phone?: string
+  employerId?: string
 }
 
 export type Participant = {
   id: string
-  name: string
+  // API response fields
+  nom?: string
+  prenom?: string
   email: string
-  phone: string
-  enrollmentDate: string
-  status: "active" | "inactive" | "completed"
-  trainingHistory: {
-    program: string
-    startDate: string
-    endDate?: string
-    status: "ongoing" | "completed" | "dropped"
-  }[]
-  // New fields based on the schema
-  firstName: string
-  lastName: string
-  structureId: string
-  profileId: string
+  tel?: string
+  structure?: {
+    id: string
+    libelle: string
+  }
+  profil?: {
+    id: string
+    libelle: string
+  }
+  formations?: string[]
+  
+  // Frontend compatibility fields
+  firstName?: string
+  lastName?: string
+  phone?: string
+  name?: string
+  structureId?: string
+  profileId?: string
 }
 
 // New types based on the schema
@@ -39,12 +49,13 @@ export type Utilisateur = {
   id: string
   login: string
   password: string
-  roleId: string
+  roleId?: string
+  role?: Role | { id: string }
 }
 
 export type Role = {
   id: string
-  name: string // "simple utilisateur" | "responsable" | "administrateur"
+  nom: string // "simple utilisateur" | "responsable" | "administrateur"
 }
 
 export type Profil = {
@@ -59,7 +70,7 @@ export type Structure = {
 
 export type Employeur = {
   id: string
-  nomEmployeur: string
+  nomemployeur: string // Changed to match API response format
 }
 
 export type Formation = {

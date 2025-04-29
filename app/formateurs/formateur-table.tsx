@@ -51,21 +51,31 @@ export function FormateurTable({ formateurs }: FormateurTableProps) {
           </Button>
         )
       },
+      cell: ({ row }) => {
+        // Handle both API format (nom/prenom) and frontend format (name)
+        const formateur = row.original
+        const displayName = formateur.name || `${formateur.prenom || ''} ${formateur.nom || ''}`
+        return <div>{displayName}</div>
+      },
     },
     {
       accessorKey: "email",
       header: "Email",
     },
     {
-      accessorKey: "specialization",
-      header: "Specialization",
+      accessorKey: "employeur",
+      header: "Employer",
+      cell: ({ row }) => {
+        // Specialization might not be in the API response
+        return <div>{row.original.employeur?.nomemployeur || 'N/A'}</div>
+      },
     },
     {
-      accessorKey: "joinedDate",
-      header: "Joined Date",
+      accessorKey: "type",
+      header: "Type",
       cell: ({ row }) => {
-        const date = new Date(row.getValue("joinedDate"))
-        return <div>{date.toLocaleDateString()}</div>
+
+        return <div>{row.original.type || 'N/A'}</div>
       },
     },
     {

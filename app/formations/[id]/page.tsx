@@ -1,4 +1,4 @@
-import { getFormationById, getDomaineById } from "@/lib/actions"
+import { getFormationById } from "@/lib/actions"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,9 +17,7 @@ export default async function FormationDetailPage({ params }: FormationDetailPag
   if (!formation) {
     notFound()
   }
-
-  const domaine = await getDomaineById(formation.domaineId)
-
+  console.log(formation.participants)
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -60,7 +58,7 @@ export default async function FormationDetailPage({ params }: FormationDetailPag
             </div>
             <div className="space-y-1">
               <div className="text-sm font-medium text-muted-foreground">Domaine</div>
-              <div>{domaine?.libelle || "Unknown"}</div>
+              <div>{formation.domaine?.libelle || "Unknown"}</div>
             </div>
             <div className="space-y-1">
               <div className="text-sm font-medium text-muted-foreground">Budget</div>
@@ -71,7 +69,28 @@ export default async function FormationDetailPage({ params }: FormationDetailPag
                 }).format(formation.budget)}
               </div>
             </div>
+            <div className="space-y-1">
+              <div className="text-sm font-medium text-muted-foreground">Formateur</div>
+              <div>
+                {formation.formateur 
+                  ? `${formation.formateur.prenom} ${formation.formateur.nom}` 
+                  : "Non assigné"}
+              </div>
+            </div>
           </div>
+
+          {formation.participants && formation.participants.length > 0 && (
+            <div className="mt-6">
+              <div className="text-sm font-medium text-muted-foreground mb-2">Participants</div>
+              <ul className="list-disc pl-5 space-y-1">
+                {formation.participants.map((participant) => (
+                  <li key={participant.id}>
+                    {participant.prenom} {participant.nom}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

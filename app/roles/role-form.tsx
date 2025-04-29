@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 
 const roleSchema = z.object({
-  name: z.string().min(2, {
+  nom: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
 })
@@ -31,7 +31,7 @@ export function RoleForm({ role }: RoleFormProps) {
   const form = useForm<RoleFormValues>({
     resolver: zodResolver(roleSchema),
     defaultValues: role || {
-      name: "",
+      nom: "",
     },
   })
 
@@ -73,7 +73,7 @@ export function RoleForm({ role }: RoleFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="name"
+          name="nom"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>

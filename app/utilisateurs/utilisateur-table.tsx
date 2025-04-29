@@ -1,6 +1,7 @@
 "use client"
 
 import type { Utilisateur } from "@/lib/data"
+import type { Role } from "@/lib/data"
 import { DataTable } from "@/components/ui/data-table"
 import type { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
@@ -61,12 +62,27 @@ export function UtilisateurTable({ utilisateurs }: UtilisateurTableProps) {
       },
     },
     {
-      accessorKey: "roleId",
+      id: "role",
       header: "Role",
       cell: ({ row }) => {
-        const roleId = row.getValue("roleId") as string
-        const role = roles.find((r) => r.id === roleId)
-        return <div>{role?.name || "Unknown"}</div>
+        const utilisateur = row.original
+        // Handle all possible formats
+        if (utilisateur.role) {
+          if (typeof utilisateur.role === 'object' && 'nom' in utilisateur.role) {
+            // API response format where role is an object with nom
+            return <div>{utilisateur.role.nom}</div>
+          } else if (typeof utilisateur.role === 'object' && 'id' in utilisateur.role) {
+            // API response format where role is an object with just id
+            const roleId = utilisateur.role.id
+            const roleObj = roles.find((r) => r.id === roleId)
+            return <div>{roleObj?.nom || "Unknown"}</div>
+          }
+        } else if (utilisateur.roleId) {
+          // Format where roleId is a direct property
+          const roleObj = roles.find((r) => r.id === utilisateur.roleId)
+          return <div>{roleObj?.nom || "Unknown"}</div>
+        }
+        return <div>Unknown</div>
       },
     },
     {

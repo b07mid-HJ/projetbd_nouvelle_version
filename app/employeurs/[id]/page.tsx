@@ -28,7 +28,7 @@ export default async function EmployeurDetailPage({ params }: EmployeurDetailPag
               <span className="sr-only">Back</span>
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-tight">{employeur.nomEmployeur}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{employeur.nomemployeur}</h1>
         </div>
         <Button asChild>
           <Link href={`/employeurs/${employeur.id}/edit`}>
@@ -45,7 +45,7 @@ export default async function EmployeurDetailPage({ params }: EmployeurDetailPag
         <CardContent className="space-y-6">
           <div className="space-y-1">
             <div className="text-sm font-medium text-muted-foreground">Nom Employeur</div>
-            <div>{employeur.nomEmployeur}</div>
+            <div>{employeur.nomemployeur}</div>
           </div>
         </CardContent>
       </Card>

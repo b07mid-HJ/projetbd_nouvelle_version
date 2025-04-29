@@ -18,7 +18,15 @@ export default async function UtilisateurDetailPage({ params }: UtilisateurDetai
     notFound()
   }
 
-  const role = await getRoleById(utilisateur.roleId)
+  // Handle both formats: direct role object from API or roleId reference
+  let role = null
+  if (utilisateur.role && typeof utilisateur.role === 'object') {
+    // API response format where role is included
+    role = utilisateur.role
+  } else if (utilisateur.roleId) {
+    // Need to fetch role by ID
+    role = await getRoleById(utilisateur.roleId)
+  }
 
   return (
     <div className="space-y-6">
@@ -52,7 +60,7 @@ export default async function UtilisateurDetailPage({ params }: UtilisateurDetai
             </div>
             <div className="space-y-1">
               <div className="text-sm font-medium text-muted-foreground">Role</div>
-              <div>{role?.name || "Unknown"}</div>
+              <div>{role?.nom || "Unknown"}</div>
             </div>
           </div>
         </CardContent>

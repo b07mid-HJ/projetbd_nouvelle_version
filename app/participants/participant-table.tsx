@@ -43,7 +43,7 @@ export function ParticipantTable({ participants }: ParticipantTableProps) {
 
   const columns: ColumnDef<Participant>[] = [
     {
-      accessorKey: "name",
+      id: "name",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -52,30 +52,51 @@ export function ParticipantTable({ participants }: ParticipantTableProps) {
           </Button>
         )
       },
+      cell: ({ row }) => {
+        const participant = row.original
+        const firstName = participant.prenom || participant.firstName || ""
+        const lastName = participant.nom || participant.lastName || ""
+        return <div>{`${firstName} ${lastName}`.trim()}</div>
+      },
+      accessorFn: (row) => {
+        const firstName = row.prenom || row.firstName || ""
+        const lastName = row.nom || row.lastName || ""
+        return `${firstName} ${lastName}`.trim()
+      },
     },
     {
       accessorKey: "email",
       header: "Email",
     },
     {
-      accessorKey: "enrollmentDate",
-      header: "Enrollment Date",
+      id: "phone",
+      header: "Phone",
+      accessorFn: (row) => row.tel || row.phone || "",
+    },
+    {
+      id: "structure",
+      header: "Structure",
       cell: ({ row }) => {
-        const date = new Date(row.getValue("enrollmentDate"))
-        return <div>{date.toLocaleDateString()}</div>
+        const participant = row.original
+        if (participant.structure?.libelle) return <div>{participant.structure.libelle}</div>
+        return <div></div>
+      },
+      accessorFn: (row) => {
+        if (row.structure?.libelle) return row.structure.libelle
+        return ""
       },
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      id: "profil",
+      header: "Profil",
       cell: ({ row }) => {
-        const status = row.getValue("status") as string
-
-        return (
-          <Badge variant={status === "active" ? "default" : status === "completed" ? "success" : "secondary"}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
-          </Badge>
-        )
+        const participant = row.original
+        if (participant.profil?.libelle) return <div>{participant.profil.libelle}</div>
+        return <div></div>
+      },
+      accessorFn: (row) => {
+        if (row.profil?.libelle) return row.profil.libelle
+        return ""
       },
     },
     {
@@ -109,7 +130,7 @@ export function ParticipantTable({ participants }: ParticipantTableProps) {
 
   return (
     <>
-      <DataTable columns={columns} data={participants} searchKey="name" searchPlaceholder="Search participants..." />
+      <DataTable columns={columns} data={participants} searchKey="email" searchPlaceholder="Search participants..." />
 
       <ConfirmDialog
         open={!!deleteId}

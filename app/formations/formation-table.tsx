@@ -1,6 +1,16 @@
 "use client"
 
-import type { Formation } from "@/lib/data"
+// Define Formation type to match API response
+interface Formation {
+  id: string
+  titre: string
+  annee: number
+  duree: number
+  budget: number
+  domaine: { id: string, libelle: string } | null
+  formateur: { id: string, nom: string, prenom: string } | null
+  participants: { id: string, nom: string, prenom: string }[] | null
+}
 import { DataTable } from "@/components/ui/data-table"
 import type { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
@@ -68,12 +78,19 @@ export function FormationTable({ formations }: FormationTableProps) {
       header: "Durée (jours)",
     },
     {
-      accessorKey: "domaineId",
+      accessorKey: "domaine",
       header: "Domaine",
       cell: ({ row }) => {
-        const domaineId = row.getValue("domaineId") as string
-        const domaine = domaines.find((d) => d.id === domaineId)
+        const domaine = row.getValue("domaine") as { id: string, libelle: string } | null
         return <div>{domaine?.libelle || "Unknown"}</div>
+      },
+    },
+    {
+      accessorKey: "formateur",
+      header: "Formateur",
+      cell: ({ row }) => {
+        const formateur = row.getValue("formateur") as { id: string, nom: string, prenom: string } | null
+        return <div>{formateur ? `${formateur.prenom} ${formateur.nom}` : "Non assigné"}</div>
       },
     },
     {

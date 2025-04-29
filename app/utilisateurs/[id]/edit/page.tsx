@@ -13,6 +13,12 @@ interface EditUtilisateurPageProps {
 
 export default async function EditUtilisateurPage({ params }: EditUtilisateurPageProps) {
   const utilisateur = await getUtilisateurById(params.id)
+  
+  // Ensure we have the correct format for the form
+  if (utilisateur && utilisateur.role && typeof utilisateur.role === 'object') {
+    // Add roleId property for compatibility with the form
+    utilisateur.roleId = utilisateur.role.id
+  }
 
   if (!utilisateur) {
     notFound()
