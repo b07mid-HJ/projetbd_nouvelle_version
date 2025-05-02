@@ -27,7 +27,7 @@ export default async function EditFormateurPage({ params }: EditFormateurPagePro
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Formateur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Edit Trainer</h1>
       </div>
 
       <FormateurForm formateur={formateur} />

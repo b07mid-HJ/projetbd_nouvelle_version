@@ -11,7 +11,7 @@ export default async function StructuresPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Structures</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Structurs</h1>
           <p className="text-muted-foreground">Manage organizational structures</p>
         </div>
         <Button asChild>

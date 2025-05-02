@@ -44,7 +44,7 @@ export default async function StructureDetailPage({ params }: StructureDetailPag
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Libelle</div>
+            <div className="text-sm font-medium text-muted-foreground">Title</div>
             <div>{structure.libelle}</div>
           </div>
         </CardContent>

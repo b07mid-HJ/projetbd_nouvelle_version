@@ -13,7 +13,7 @@ export default function NewUtilisateurPage() {
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">New Utilisateur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">New User</h1>
       </div>
 
       <UtilisateurForm />

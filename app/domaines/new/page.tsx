@@ -13,7 +13,7 @@ export default function NewDomainePage() {
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">New Domaine</h1>
+        <h1 className="text-3xl font-bold tracking-tight">New Domain</h1>
       </div>
 
       <DomaineForm />

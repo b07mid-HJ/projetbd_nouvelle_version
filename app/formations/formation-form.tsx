@@ -25,16 +25,16 @@ import { useQuery } from "@tanstack/react-query"
 
 const formationSchema = z.object({
   titre: z.string().min(2, {
-    message: "Titre must be at least 2 characters.",
+    message: "Title must be at least 2 characters.",
   }),
   annee: z.coerce.number().int().min(2000, {
-    message: "Année must be at least 2000.",
+    message: "Year must be at least 2000.",
   }),
   duree: z.coerce.number().int().min(1, {
-    message: "Durée must be at least 1 day.",
+    message: "Duration must be at least 1 day.",
   }),
   domaineId: z.string({
-    required_error: "Please select a domaine.",
+    required_error: "Please select a domain.",
   }),
   budget: z.coerce.number().min(0, {
     message: "Budget must be a positive number.",
@@ -123,10 +123,10 @@ export function FormationForm({ formation }: FormationFormProps) {
 
       if (result.success) {
         toast({
-          title: isEditing ? "Formation updated" : "Formation created",
+          title: isEditing ? "Training updated" : "Training created",
           description: isEditing
-            ? "The formation has been updated successfully."
-            : "The formation has been created successfully.",
+            ? "The Training has been updated successfully."
+            : "The Training has been created successfully.",
         })
         router.push(isEditing ? `/formations/${formation.id}` : "/formations")
       } else {
@@ -154,7 +154,7 @@ export function FormationForm({ formation }: FormationFormProps) {
             name="titre"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Titre</FormLabel>
+                <FormLabel>Title</FormLabel>
                 <FormControl>
                   <Input placeholder="Formation title" {...field} />
                 </FormControl>
@@ -167,7 +167,7 @@ export function FormationForm({ formation }: FormationFormProps) {
             name="annee"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Année</FormLabel>
+                <FormLabel>Year</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="2023" {...field} />
                 </FormControl>
@@ -180,7 +180,7 @@ export function FormationForm({ formation }: FormationFormProps) {
             name="duree"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Durée (jours)</FormLabel>
+                <FormLabel>Duration</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="5" {...field} />
                 </FormControl>
@@ -193,7 +193,7 @@ export function FormationForm({ formation }: FormationFormProps) {
             name="domaineId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Domaine</FormLabel>
+                <FormLabel>Domain</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -230,7 +230,7 @@ export function FormationForm({ formation }: FormationFormProps) {
             name="formateurId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Formateur</FormLabel>
+                <FormLabel>Trainer</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>

@@ -40,14 +40,14 @@ export default async function FormateurDetailPage({ params }: FormateurDetailPag
         <Button asChild>
           <Link href={`/formateurs/${formateur.id}/edit`}>
             <Pencil className="mr-2 h-4 w-4" />
-            Edit Formateur
+            Edit Trainer
           </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Formateur Details</CardTitle>
+          <CardTitle>Trainer Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

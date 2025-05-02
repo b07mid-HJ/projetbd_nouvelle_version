@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 const employeurSchema = z.object({
   nomEmployeur: z.string().min(2, {
-    message: "Nom employeur must be at least 2 characters.",
+    message: "Employer name must be at least 2 characters.",
   }),
 })
 
@@ -48,10 +48,10 @@ export function EmployeurForm({ employeur }: EmployeurFormProps) {
 
       if (result.success) {
         toast({
-          title: isEditing ? "Employeur updated" : "Employeur created",
+          title: isEditing ? "Employer updated" : "Employer created",
           description: isEditing
-            ? "The employeur has been updated successfully."
-            : "The employeur has been created successfully.",
+            ? "The employer has been updated successfully."
+            : "The employer has been created successfully.",
         })
         router.push(isEditing ? `/employeurs/${employeur.id}` : "/employeurs")
       } else {
@@ -78,7 +78,7 @@ export function EmployeurForm({ employeur }: EmployeurFormProps) {
           name="nomEmployeur"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nom Employeur</FormLabel>
+              <FormLabel>Employer Name</FormLabel>
               <FormControl>
                 <Input placeholder="Employer name" {...field} />
               </FormControl>

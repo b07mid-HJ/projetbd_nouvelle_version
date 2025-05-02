@@ -35,13 +35,13 @@ export function UtilisateurTable({ utilisateurs }: UtilisateurTableProps) {
 
     if (result.success) {
       toast({
-        title: "Utilisateur deleted",
-        description: "The utilisateur has been successfully deleted.",
+        title: "User deleted",
+        description: "The User has been successfully deleted.",
       })
     } else {
       toast({
         title: "Error",
-        description: result.error || "Failed to delete utilisateur.",
+        description: result.error || "Failed to delete User.",
         variant: "destructive",
       })
     }
@@ -116,14 +116,14 @@ export function UtilisateurTable({ utilisateurs }: UtilisateurTableProps) {
 
   return (
     <>
-      <DataTable columns={columns} data={utilisateurs} searchKey="login" searchPlaceholder="Search utilisateurs..." />
+      <DataTable columns={columns} data={utilisateurs} searchKey="login" searchPlaceholder="Search Users..." />
 
       <ConfirmDialog
         open={!!deleteId}
         onOpenChange={(open) => !open && setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Utilisateur"
-        description="Are you sure you want to delete this utilisateur? This action cannot be undone."
+        title="Delete User"
+        description="Are you sure you want to delete this User? This action cannot be undone."
         confirmText="Delete"
       />
     </>

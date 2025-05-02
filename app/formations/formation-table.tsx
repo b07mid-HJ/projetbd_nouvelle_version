@@ -43,13 +43,13 @@ export function FormationTable({ formations }: FormationTableProps) {
 
     if (result.success) {
       toast({
-        title: "Formation deleted",
-        description: "The formation has been successfully deleted.",
+        title: "Training deleted",
+        description: "The Training has been successfully deleted.",
       })
     } else {
       toast({
         title: "Error",
-        description: result.error || "Failed to delete formation.",
+        description: result.error || "Failed to delete Training.",
         variant: "destructive",
       })
     }
@@ -63,7 +63,7 @@ export function FormationTable({ formations }: FormationTableProps) {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Titre
+            Title
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
@@ -71,15 +71,15 @@ export function FormationTable({ formations }: FormationTableProps) {
     },
     {
       accessorKey: "annee",
-      header: "Année",
+      header: "Year",
     },
     {
       accessorKey: "duree",
-      header: "Durée (jours)",
+      header: "Duration",
     },
     {
       accessorKey: "domaine",
-      header: "Domaine",
+      header: "Domain",
       cell: ({ row }) => {
         const domaine = row.getValue("domaine") as { id: string, libelle: string } | null
         return <div>{domaine?.libelle || "Unknown"}</div>
@@ -87,7 +87,7 @@ export function FormationTable({ formations }: FormationTableProps) {
     },
     {
       accessorKey: "formateur",
-      header: "Formateur",
+      header: "Trainer",
       cell: ({ row }) => {
         const formateur = row.getValue("formateur") as { id: string, nom: string, prenom: string } | null
         return <div>{formateur ? `${formateur.prenom} ${formateur.nom}` : "Non assigné"}</div>
@@ -142,8 +142,8 @@ export function FormationTable({ formations }: FormationTableProps) {
         open={!!deleteId}
         onOpenChange={(open) => !open && setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Formation"
-        description="Are you sure you want to delete this formation? This action cannot be undone."
+        title="Delete Training"
+        description="Are you sure you want to delete this Training? This action cannot be undone."
         confirmText="Delete"
       />
     </>

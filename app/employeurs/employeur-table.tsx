@@ -26,13 +26,13 @@ export function EmployeurTable({ employeurs }: EmployeurTableProps) {
 
     if (result.success) {
       toast({
-        title: "Employeur deleted",
-        description: "The employeur has been successfully deleted.",
+        title: "Employer deleted",
+        description: "The employer has been successfully deleted.",
       })
     } else {
       toast({
         title: "Error",
-        description: result.error || "Failed to delete employeur.",
+        description: result.error || "Failed to delete employer.",
         variant: "destructive",
       })
     }
@@ -46,7 +46,7 @@ export function EmployeurTable({ employeurs }: EmployeurTableProps) {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Nom Employeur
+            Employer Name
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
@@ -87,15 +87,15 @@ export function EmployeurTable({ employeurs }: EmployeurTableProps) {
         columns={columns}
         data={employeurs}
         searchKey="nomemployeur" // Using the API field name
-        searchPlaceholder="Search employeurs..."
+        searchPlaceholder="Search employers..."
       />
 
       <ConfirmDialog
         open={!!deleteId}
         onOpenChange={(open) => !open && setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Employeur"
-        description="Are you sure you want to delete this employeur? This action cannot be undone."
+        title="Delete Employer"
+        description="Are you sure you want to delete this employer? This action cannot be undone."
         confirmText="Delete"
       />
     </>

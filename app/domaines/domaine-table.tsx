@@ -26,13 +26,13 @@ export function DomaineTable({ domaines }: DomaineTableProps) {
 
     if (result.success) {
       toast({
-        title: "Domaine deleted",
-        description: "The domaine has been successfully deleted.",
+        title: "Domain deleted",
+        description: "The domain has been successfully deleted.",
       })
     } else {
       toast({
         title: "Error",
-        description: result.error || "Failed to delete domaine.",
+        description: result.error || "Failed to delete domain.",
         variant: "destructive",
       })
     }
@@ -46,7 +46,7 @@ export function DomaineTable({ domaines }: DomaineTableProps) {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-            Libelle
+            Title
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )

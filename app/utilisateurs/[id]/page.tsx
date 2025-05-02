@@ -43,14 +43,14 @@ export default async function UtilisateurDetailPage({ params }: UtilisateurDetai
         <Button asChild>
           <Link href={`/utilisateurs/${utilisateur.id}/edit`}>
             <Pencil className="mr-2 h-4 w-4" />
-            Edit Utilisateur
+            Edit User
           </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Utilisateur Details</CardTitle>
+          <CardTitle>User Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

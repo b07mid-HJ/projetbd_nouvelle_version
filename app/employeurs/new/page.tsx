@@ -13,7 +13,7 @@ export default function NewEmployeurPage() {
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">New Employeur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">New Employer</h1>
       </div>
 
       <EmployeurForm />

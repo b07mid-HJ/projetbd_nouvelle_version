@@ -33,18 +33,18 @@ export default async function DomaineDetailPage({ params }: DomaineDetailPagePro
         <Button asChild>
           <Link href={`/domaines/${domaine.id}/edit`}>
             <Pencil className="mr-2 h-4 w-4" />
-            Edit Domaine
+            Edit Domain
           </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Domaine Details</CardTitle>
+          <CardTitle>Domain Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Libelle</div>
+            <div className="text-sm font-medium text-muted-foreground">Title</div>
             <div>{domaine.libelle}</div>
           </div>
         </CardContent>

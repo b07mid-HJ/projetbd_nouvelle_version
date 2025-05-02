@@ -33,7 +33,7 @@ export default async function EditUtilisateurPage({ params }: EditUtilisateurPag
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Utilisateur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Edit User</h1>
       </div>
 
       <UtilisateurForm utilisateur={utilisateur} />

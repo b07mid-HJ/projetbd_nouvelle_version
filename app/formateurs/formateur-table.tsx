@@ -27,12 +27,12 @@ export function FormateurTable({ formateurs }: FormateurTableProps) {
     if (result.success) {
       toast({
         title: "Formateur deleted",
-        description: "The formateur has been successfully deleted.",
+        description: "The Trainer has been successfully deleted.",
       })
     } else {
       toast({
         title: "Error",
-        description: result.error || "Failed to delete formateur.",
+        description: result.error || "Failed to delete Trainer.",
         variant: "destructive",
       })
     }
@@ -109,14 +109,14 @@ export function FormateurTable({ formateurs }: FormateurTableProps) {
 
   return (
     <>
-      <DataTable columns={columns} data={formateurs} searchKey="name" searchPlaceholder="Search formateurs..." />
+      <DataTable columns={columns} data={formateurs} searchKey="name" searchPlaceholder="Search Trainer..." />
 
       <ConfirmDialog
         open={!!deleteId}
         onOpenChange={(open) => !open && setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Formateur"
-        description="Are you sure you want to delete this formateur? This action cannot be undone."
+        title="Delete Trainer"
+        description="Are you sure you want to delete this Trainer? This action cannot be undone."
         confirmText="Delete"
       />
     </>

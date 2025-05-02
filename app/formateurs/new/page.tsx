@@ -13,7 +13,7 @@ export default function NewFormateurPage() {
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">New Formateur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">New Trainer</h1>
       </div>
 
       <FormateurForm />

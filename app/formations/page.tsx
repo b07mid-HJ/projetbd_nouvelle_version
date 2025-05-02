@@ -11,13 +11,13 @@ export default async function FormationsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Formations</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Trainings</h1>
           <p className="text-muted-foreground">Manage training programs</p>
         </div>
         <Button asChild>
           <Link href="/formations/new">
             <PlusCircle className="mr-2 h-4 w-4" />
-            Add Formation
+            Add Trainings
           </Link>
         </Button>
       </div>

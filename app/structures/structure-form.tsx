@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 const structureSchema = z.object({
   libelle: z.string().min(2, {
-    message: "Libelle must be at least 2 characters.",
+    message: "Title must be at least 2 characters.",
   }),
 })
 
@@ -76,7 +76,7 @@ export function StructureForm({ structure }: StructureFormProps) {
           name="libelle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Libelle</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder="Structure name" {...field} />
               </FormControl>

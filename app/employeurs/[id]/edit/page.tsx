@@ -27,7 +27,7 @@ export default async function EditEmployeurPage({ params }: EditEmployeurPagePro
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Employeur</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Edit Employer</h1>
       </div>
 
       <EmployeurForm employeur={employeur} />

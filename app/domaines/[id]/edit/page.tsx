@@ -27,7 +27,7 @@ export default async function EditDomainePage({ params }: EditDomainePageProps) 
             <span className="sr-only">Back</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Domaine</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Edit Domain</h1>
       </div>
 
       <DomaineForm domaine={domaine} />

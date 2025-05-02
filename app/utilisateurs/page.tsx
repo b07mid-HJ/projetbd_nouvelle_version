@@ -11,13 +11,13 @@ export default async function UtilisateursPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Utilisateurs</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Users</h1>
           <p className="text-muted-foreground">Manage system users and access rights</p>
         </div>
         <Button asChild>
           <Link href="/utilisateurs/new">
             <PlusCircle className="mr-2 h-4 w-4" />
-            Add Utilisateur
+            Add User
           </Link>
         </Button>
       </div>

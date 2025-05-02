@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 const domaineSchema = z.object({
   libelle: z.string().min(2, {
-    message: "Libelle must be at least 2 characters.",
+    message: "Title must be at least 2 characters.",
   }),
 })
 
@@ -46,10 +46,10 @@ export function DomaineForm({ domaine }: DomaineFormProps) {
 
       if (result.success) {
         toast({
-          title: isEditing ? "Domaine updated" : "Domaine created",
+          title: isEditing ? "Domain updated" : "Domain created",
           description: isEditing
-            ? "The domaine has been updated successfully."
-            : "The domaine has been created successfully.",
+            ? "The domain has been updated successfully."
+            : "The domain has been created successfully.",
         })
         router.push(isEditing ? `/domaines/${domaine.id}` : "/domaines")
       } else {
@@ -76,7 +76,7 @@ export function DomaineForm({ domaine }: DomaineFormProps) {
           name="libelle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Libelle</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder="Domain name" {...field} />
               </FormControl>

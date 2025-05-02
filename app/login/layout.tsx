@@ -13,17 +13,13 @@ export default function LoginLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="min-h-screen flex flex-col">
-              <main className="flex-1">{children}</main>
-            </div>
-            <Toaster />
-          </ThemeProvider>
-        </QueryProvider>
-      </body>
-    </html>
+    <div className="min-h-screen flex flex-col">
+      <QueryProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <main className="flex-1">{children}</main>
+          <Toaster />
+        </ThemeProvider>
+      </QueryProvider>
+    </div>
   )
 }

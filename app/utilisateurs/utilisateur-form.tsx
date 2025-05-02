@@ -62,10 +62,10 @@ export function UtilisateurForm({ utilisateur }: UtilisateurFormProps) {
 
       if (result.success) {
         toast({
-          title: isEditing ? "Utilisateur updated" : "Utilisateur created",
+          title: isEditing ? "User updated" : "User created",
           description: isEditing
-            ? "The utilisateur has been updated successfully."
-            : "The utilisateur has been created successfully.",
+            ? "The User has been updated successfully."
+            : "The User has been created successfully.",
         })
         router.push(isEditing ? `/utilisateurs/${utilisateur.id}` : "/utilisateurs")
       } else {
@@ -147,7 +147,7 @@ export function UtilisateurForm({ utilisateur }: UtilisateurFormProps) {
           >
             Cancel
           </Button>
-          <Button type="submit">{isEditing ? "Update Utilisateur" : "Create Utilisateur"}</Button>
+          <Button type="submit">{isEditing ? "Update User" : "Create User"}</Button>
         </div>
       </form>
     </Form>

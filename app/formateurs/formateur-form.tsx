@@ -215,7 +215,7 @@ export function FormateurForm({ formateur }: FormateurFormProps) {
           >
             Cancel
           </Button>
-          <Button type="submit">{isEditing ? "Update Formateur" : "Create Formateur"}</Button>
+          <Button type="submit">{isEditing ? "Update Trainer" : "Create Trainer"}</Button>
         </div>
       </form>
     </Form>

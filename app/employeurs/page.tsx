@@ -11,13 +11,13 @@ export default async function EmployeursPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Employeurs</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Employers</h1>
           <p className="text-muted-foreground">Manage trainer employers</p>
         </div>
         <Button asChild>
           <Link href="/employeurs/new">
             <PlusCircle className="mr-2 h-4 w-4" />
-            Add Employeur
+            Add Employer
           </Link>
         </Button>
       </div>

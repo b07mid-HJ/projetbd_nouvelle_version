@@ -22,6 +22,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { useEffect, useState } from "react"
 import { getUserName, getUserRole, logout } from "@/lib/auth"
 import { useSidebar } from "@/context/sidebar-context"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 
 export default function Sidebar() {
   const pathname = usePathname()
@@ -52,7 +53,7 @@ export default function Sidebar() {
       roles: ["admin", "responsable"], // All roles can access dashboard
     },
     {
-      name: "Formateurs",
+      name: "Trainers",
       href: "/formateurs",
       icon: <Users className="h-5 w-5" />,
       roles: ["admin","simple"], // Only admin can access formateurs
@@ -64,13 +65,13 @@ export default function Sidebar() {
       roles: ["admin","simple"], // Admin and formateur can access participants
     },
     {
-      name: "Formations",
+      name: "Trainings",
       href: "/formations",
       icon: <BookOpen className="h-5 w-5" />,
       roles: ["admin","simple"], // Multiple roles can access formations
     },
     {
-      name: "Domaines",
+      name: "Domains",
       href: "/domaines",
       icon: <Layers className="h-5 w-5" />,
       roles: ["admin"],
@@ -82,7 +83,7 @@ export default function Sidebar() {
       roles: ["admin"],
     },
     {
-      name: "Employeurs",
+      name: "Employers",
       href: "/employeurs",
       icon: <Briefcase className="h-5 w-5" />,
       roles: ["admin"],
@@ -94,7 +95,7 @@ export default function Sidebar() {
       roles: ["admin"],
     },
     {
-      name: "Utilisateurs",
+      name: "Users",
       href: "/utilisateurs",
       icon: <ShieldCheck className="h-5 w-5" />,
       roles: ["admin"], // Only admin can manage users
@@ -187,30 +188,50 @@ export default function Sidebar() {
         <div className="border-t p-4">
           <div className="flex flex-col space-y-4">
             {username && (
-              <div className={cn("flex items-center gap-2", !isOpen && "md:justify-center")}>
-                <span className={cn("text-sm font-medium transition-opacity", isOpen ? "opacity-100" : "opacity-0 md:hidden md:w-0")}>
-                  {username}
-                </span>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => {
-                    logout()
-                    router.push('/login')
-                    router.refresh()
-                  }}
-                  title="Logout"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className={cn("flex items-center gap-2 w-full justify-start", !isOpen && "md:justify-center")}>
+                    <UserCircle className="h-4 w-4" />
+                    <span className={cn("text-sm font-medium transition-opacity", isOpen ? "opacity-100" : "opacity-0 md:hidden md:w-0")}>
+                      {username}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem className="py-2">
+                    <span className="font-medium">{username}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    className="py-3 flex items-center" 
+                    onSelect={(e) => {
+                      // Prevent the default selection behavior
+                      e.preventDefault();
+                    }}
+                  
+                  >
+                    <ModeToggle />
+                    <span className="ml-2">Theme</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="py-3 flex items-center"
+                  >
+                    <Button variant="ghost" size="icon" onClick={() => {
+                      logout()
+                      router.push('/login')
+                      router.refresh()
+                    }} title="Logout">
+                      <LogOut className="h-4 w-4 mr-2" />
+                    </Button>
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
-            <div className={cn("flex", !isOpen && "md:justify-center")}>
-              <ModeToggle />
-            </div>
           </div>
         </div>
       </aside>
     </div>
+    
   )
 }

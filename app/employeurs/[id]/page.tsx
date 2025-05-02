@@ -33,18 +33,18 @@ export default async function EmployeurDetailPage({ params }: EmployeurDetailPag
         <Button asChild>
           <Link href={`/employeurs/${employeur.id}/edit`}>
             <Pencil className="mr-2 h-4 w-4" />
-            Edit Employeur
+            Edit Employer
           </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Employeur Details</CardTitle>
+          <CardTitle>Employer Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Nom Employeur</div>
+            <div className="text-sm font-medium text-muted-foreground">Employer Name</div>
             <div>{employeur.nomemployeur}</div>
           </div>
         </CardContent>

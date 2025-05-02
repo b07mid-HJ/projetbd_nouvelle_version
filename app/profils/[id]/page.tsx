@@ -44,7 +44,7 @@ export default async function ProfilDetailPage({ params }: ProfilDetailPageProps
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-1">
-            <div className="text-sm font-medium text-muted-foreground">Libelle</div>
+            <div className="text-sm font-medium text-muted-foreground">Title</div>
             <div>{profil.libelle}</div>
           </div>
         </CardContent>
